@@ -1,0 +1,24 @@
+name: hello-rsk-squid
+version: 1
+description: Minimal Subsquid indexer for Rootstock blocks, transactions, and ERC-20 transfers
+build:
+  nodeVersion: "18"
+  cmd: npm run codegen && tsc
+deploy:
+  addons:
+    postgres: {}
+processor:
+  code: lib/processor.js
+  env:
+    - RSK_RPC_URL
+    - START_BLOCK
+    - DB_HOST
+    - DB_PORT
+    - DB_NAME
+    - DB_USER
+    - DB_PASS
+  Tables: [] # generated from schema.graphql
+api:
+  code: lib/server.js
+  port: 4350
+  playground: true

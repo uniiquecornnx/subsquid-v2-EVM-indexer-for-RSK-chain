@@ -1,0 +1,29 @@
+
+type Block @entity {
+  id: ID!
+  height: Int! @index
+  timestamp: DateTime!
+  transactions: [Transaction!] @derivedFrom(field: "block")
+  transfers: [Transfer!] @derivedFrom(field: "block")
+}
+
+type Transaction @entity {
+  id: ID!
+  hash: String! @unique
+  from: String! @index
+  to: String @index
+  value: BigInt!
+  success: Boolean!
+  block: Block!
+  transfers: [Transfer!] @derivedFrom(field: "tx")
+}
+
+type Transfer @entity {
+  id: ID!
+  token: String! @index
+  from: String! @index
+  to: String! @index
+  value: BigInt!
+  tx: Transaction!
+  block: Block!
+}

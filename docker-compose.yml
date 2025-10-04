@@ -1,0 +1,16 @@
+# docker-compose.yml
+version: "3.8"
+services:
+  db:
+    image: postgres:15
+    container_name: rootstock-subsquid-db
+    environment:
+      POSTGRES_DB: ${DB_NAME:-squid}
+      POSTGRES_USER: ${DB_USER:-squid}
+      POSTGRES_PASSWORD: ${DB_PASS:-squid}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
